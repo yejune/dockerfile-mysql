@@ -22,15 +22,15 @@ if [ ! -z "${MYSQL_URL}" ]; then
         [ "${proto}" = "redis://" ] && port="6379"
     fi
 
-    MYSQL_USER=${user}
-    MYSQL_PASSWORD=${pass}
-    MYSQL_DATABASE=${path/\/}
+    export MYSQL_USER=${user}
+    export MYSQL_PASSWORD=${pass}
+    export MYSQL_DATABASE=${path/\/}
 fi
 
--TARGET_UID=$(stat -c "%u" /var/lib/mysql)
--usermod -o -u $TARGET_UID mysql || true
--TARGET_GID=$(stat -c "%g" /var/lib/mysql)
--groupmod -o -g $TARGET_GID mysql || true
--chown -R mysql:root /var/run/mysqld/
+TARGET_UID=$(stat -c "%u" /var/lib/mysql)
+usermod -o -u $TARGET_UID mysql || true
+TARGET_GID=$(stat -c "%g" /var/lib/mysql)
+groupmod -o -g $TARGET_GID mysql || true
+chown -R mysql:root /var/run/mysqld/
 
 /entrypoint.sh mysqld --user=mysql --console
