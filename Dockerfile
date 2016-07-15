@@ -1,4 +1,4 @@
-FROM mysql:5.7
+FROM mysql:5.7.11
 
 MAINTAINER yejune "kwon@yejune.com"
 
