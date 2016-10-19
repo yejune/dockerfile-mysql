@@ -27,6 +27,10 @@ if [ ! -z "${MYSQL_URL}" ]; then
     export MYSQL_DATABASE=${path/\/}
 fi
 
+if [ ! -z "${INITDB}" ]; then
+    echo ${INITDB} > /docker-entrypoint-initdb.d/init.sql
+fi
+
 TARGET_UID=$(stat -c "%u" /var/lib/mysql)
 usermod -o -u $TARGET_UID mysql || true
 TARGET_GID=$(stat -c "%g" /var/lib/mysql)
