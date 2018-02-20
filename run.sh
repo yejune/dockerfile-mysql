@@ -16,10 +16,7 @@ if [ ! -z "${MYSQL_URL}" ]; then
     [ -z "${user}" ] && user="${userpass}"
     [ -z "${host}" ] && host="${hostport}"
     if [ -z "${port}" ]; then
-        [ "${proto}" = "http://" ]  && port="80"
-        [ "${proto}" = "https://" ] && port="443"
-        [ "${proto}" = "mysql://" ] && port="3306"
-        [ "${proto}" = "redis://" ] && port="6379"
+        port="3306"
     fi
 
     export MYSQL_USER=${user}
@@ -31,10 +28,4 @@ if [ ! -z "${INITDB}" ]; then
     echo ${INITDB} > /docker-entrypoint-initdb.d/init.sql
 fi
 
-# TARGET_UID=$(stat -c "%u" /var/lib/mysql)
-# usermod -o -u $TARGET_UID mysql || true
-# TARGET_GID=$(stat -c "%g" /var/lib/mysql)
-# groupmod -o -g $TARGET_GID mysql || true
-# chown -R mysql:root /var/run/mysqld/
-
-/entrypoint.sh mysqld --user=mysql --console
+/entrypoint.sh "$@" --console
