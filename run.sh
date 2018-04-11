@@ -28,4 +28,32 @@ if [ ! -z "${INITDB}" ]; then
     echo ${INITDB} > /docker-entrypoint-initdb.d/init.sql
 fi
 
+if [ ! -z "${LOG_OUTPUT}" ]; then
+    echo "log_output=${LOG_OUTPUT}" >> /etc/mysql/conf.d/custom.cnf
+fi
+
+if [ ! -z "${GENERAL_LOG}" ]; then
+    echo "general_log=${GENERAL_LOG}" >> /etc/mysql/conf.d/custom.cnf
+fi
+
+if [ ! -z "${GENERAL_LOG_FILE}" ]; then
+    echo "general_log_file=${GENERAL_LOG_FILE}" >> /etc/mysql/conf.d/custom.cnf
+fi
+
+if [ ! -z "${SLOW_QUERY_LOG}" ]; then
+    echo "slow_query_log=${SLOW_QUERY_LOG}" >> /etc/mysql/conf.d/custom.cnf
+fi
+
+if [ ! -z "${SLOW_QUERY_LOG_FILE}" ]; then
+    echo "slow_query_log_file=${SLOW_QUERY_LOG_FILE}" >> /etc/mysql/conf.d/custom.cnf
+fi
+
+if [ ! -z "${LONG_QUERY_TIME}" ]; then
+    echo "long_query_time=${LONG_QUERY_TIME}" >> /etc/mysql/conf.d/custom.cnf
+fi
+
+if [ ! -z "${CONFIGURATION}" ]; then
+    echo "${CONFIGURATION}" >> /etc/mysql/conf.d/custom.cnf
+fi
+
 /entrypoint.sh "$@" --console
