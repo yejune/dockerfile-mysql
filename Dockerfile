@@ -1,8 +1,11 @@
-FROM mysql:5.7
+FROM mysql:5.7.27
 
-MAINTAINER yejune "kwon@yejune.com"
+LABEL maintainer="k@yejune.com"
 
-ADD run.sh /run.sh
+COPY custom.cnf /etc/mysql/conf.d/custom.cnf
+
+COPY run.sh /run.sh
+
 RUN chmod +x /run.sh
 
 ENTRYPOINT ["/run.sh"]
